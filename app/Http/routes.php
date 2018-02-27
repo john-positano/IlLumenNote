@@ -1,16 +1,15 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
-|
-*/
+$dirname = dirname(__FILE__);
 
-$app->get('/', function () use ($app) {
-    return $app->version();
+$app->get('/', function () use ($app, $dirname) {
+  return file_get_contents($dirname."/../../public/views/index.html");
+});
+
+$app->post('/login', 'UserController@Login');
+
+$app->group(['middleware' => 'auth'], function () use ($app) {
+  $app->get('/dashboard', function () {
+    return 1;
+  });
 });
