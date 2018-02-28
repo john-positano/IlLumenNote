@@ -1,0 +1,33 @@
+<div class="notification col-4 offset-8" color="red" style="display: none;">
+  <b>{{ notificationBody }}</b>
+</div>
+<div class="row login-page-row">
+
+  <div class="jumbotron col-8 offset-2">
+    <h1 class="display-3 text-center">IlLumenNote</h1>
+  </div>
+
+  <div class="col-4 offset-4 login-page-modal">
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">Email</span>
+      <input 
+        ng-model="email" 
+        type="text" 
+        class="form-control" 
+        placeholder="example@email.com">
+    </div>
+    <hr>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1">Password</span>
+      <input 
+      ng-model="password" 
+      type="password" 
+      class="form-control" 
+      placeholder="p@ssw0rd!">
+    </div>
+    <hr>
+    <div class="input-group">
+      <button class="btn btn-default col-12" ng-click="login(email, password)">Login</button>
+    </div>
+  </div>
+</div>

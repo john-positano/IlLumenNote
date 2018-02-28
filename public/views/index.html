@@ -2,11 +2,31 @@
   <head>
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.0/angular-animate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Nobile:700i" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://bootswatch.com/4/lumen/bootstrap.min.css">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="/styles/style.css">
   </head>
-  <body>
+  <body ng-app="IlLumenNote">
+    <div ui-view="mainView" class="container-fluid">
+      
+    </div>
   </body>
+  <script src="/scripts/app.js"></script>
+  <script src="/scripts/routes.js"></script>
+
+  <script src="/scripts/Controllers/LoginController.js"></script>
+  <script src="/scripts/Controllers/DashboardController.js"></script>
+
+  <script src="/scripts/Services/LoginService.js"></script>
+  <script src="/scripts/Services/NotificationService.js"></script>
+
+  <script src="/scripts/Factories/JWTTokenInterceptor.js"></script>
 </html>

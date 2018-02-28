@@ -26,7 +26,7 @@ class Authenticate
         (!preg_match('/Bearer/', $bearer))
       ) {
         return response(
-          '{"errorMessage":""Authorization" header or Authorized JWT Token is missing. e.g. "Authorization": "Bearer ey8cS0g42gE0g9Sn5Z [...]" "}', 
+          '{"errorMessage":"\'Authorization\' header or Authorized JWT Token is missing. e.g. \'Authorization\': \'Bearer ey8cS0g42gE0g9Sn5Z [...]\'"}', 
           401
         )->header('Content-Type', 'application/json');
       }
