@@ -1,3 +1,9 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    max-width:100%;  /* added */
+}
+
 .login-page-row {
   padding-top: 50px;
 }
@@ -32,7 +38,7 @@ button.btn.btn-default {
   font-size: 16px;
 }
 
-.jumbotron {
+.jumbotron, .header-logo {
   background-color: darkgrey;
   color: white;
   font-family: 'Nobile', sans-serif;
@@ -56,3 +62,50 @@ hr { margin-left: 40px; margin-right: 40px; }
 
 [color="red"] { border: 1px solid #ED6464; background-color: #f6b1b1; }
 [color="blue"] { border: 1px solid #6495ed; background-color: #b1caf6; }
+
+.header { z-index: 10; height: 90px; background-color: darkgrey; box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.6); }
+.board {  z-index: 8; height: calc(100vh - 90px); background-color: lightgrey; }
+
+.header-btn { width: 100%; height: calc(100% - 30px); margin-top: 15px; margin-bottom: 15px; padding-left: 5%; padding-right: 5%; padding-top: 10px; }
+.header-btn:hover { margin-top: 15px !important; }
+.header-icon { font-size: 16px; }
+
+.no-pad { padding: 0px; }
+
+.grid {
+  position: relative;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 0;
+}
+.item {
+  display: block;
+  position: absolute;
+  margin: 0;
+  z-index: 1;
+  background: transparent;
+  color: #000;
+  padding: 1%;
+  height: 150px;
+}
+.item-content {
+  height: 100px;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.5);
+  background-color: #FFFFFF;
+  padding: .5%;
+}
+.item.muuri-item-dragging {
+  z-index: 3;
+}
+.item.muuri-item-releasing {
+  z-index: 2;
+}
+.item.muuri-item-hidden {
+  z-index: 0;
+}
+.item-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}

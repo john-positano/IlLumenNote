@@ -3,18 +3,21 @@
 $dirname = dirname(__FILE__);
 
 // Views
-
-$app->get('/', function () use ($app, $dirname) {
+$app->get('/', function () use ($dirname) {
   return file_get_contents($dirname."/../../public/views/index.html");
 });
 
-$app->get('/login', function () { return redirect('/'); });
+$app->get('/login', function () use ($dirname) { 
+  return file_get_contents($dirname."/../../public/views/index.html"); 
+});
 
-$app->get('/app/{anything}', function () { return redirect('/'); });
+$app->get('/app/{anything}', function () use ($dirname) { 
+  return redirect('/');
+});
 
 $app->group(['middleware' => 'auth'], function () use ($app) {
   $app->get('/private/dashboard', function () {
-    return '<div> hi </div>';
+    return view('Lumen.dashboard');
   });
 });
 
