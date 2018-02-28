@@ -1,6 +1,4 @@
 angular.module('IlLumenNote').controller('LoginController', function ($state, $scope, $rootScope, LoginService, NotificationService, $compile) {
-
-
   $scope.notificationBody = ' ';
 
   $scope.redden = function (ngModel) {

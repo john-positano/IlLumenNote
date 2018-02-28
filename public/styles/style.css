@@ -50,6 +50,8 @@ hr { margin-left: 40px; margin-right: 40px; }
   margin-right: 10px;
 
   padding: 20px;
+  box-shadow: 0px 1px 1px #3c598e;
+  height: 65px;
 }
 
 [color="red"] { border: 1px solid #ED6464; background-color: #f6b1b1; }

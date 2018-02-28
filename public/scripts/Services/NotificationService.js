@@ -14,21 +14,27 @@ angular.module('IlLumenNote').service('NotificationService', function ($timeout)
     if (!self.busy) {
       self.busy = true;
       self.$$element.slideDown(
-        200,
-        function () {
-          $lambda1();
-          self.promise = $timeout(
-            function () {
-              $lambda2();
-              self.$$element.slideUp(
-                200, 
-                function () {
-                  self.busy = false;
-                }
-              );
-            }, 
-            1500
-          );
+        {
+          duration: 200,
+          easing: 'easeOutQuart',
+          complete: function () {
+            $lambda1();
+            self.promise = $timeout(
+              function () {
+                $lambda2();
+                self.$$element.slideUp(
+                  {
+                    duration: 200,
+                    easing: 'easeInQuart',
+                    complete: function () {
+                      self.busy = false;
+                    }
+                  }
+                );
+              }, 
+              1500
+            );
+          }
         }
       );
     }

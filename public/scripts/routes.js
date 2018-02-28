@@ -7,7 +7,12 @@ angular.module('IlLumenNote').config(
         'private',
         {
           abstract: true,
-          url: '/app'
+          url: '/app',
+          views: {
+            'mainView': {
+              template: '<div ui-view="privateView"></div>'
+            }
+          }
         }
       )
       .state(
@@ -27,9 +32,8 @@ angular.module('IlLumenNote').config(
         {
           url: '/dashboard',
           views: {
-            'mainView': {
-              // templateUrl: '/private/dashboard',
-              template: '<div> hi </div>',
+            'privateView': {
+              templateUrl: '/private/dashboard',
               controller: 'DashboardController'
             }
           }
