@@ -28,7 +28,8 @@ angular.module('IlLumenNote').config(
           url: '/dashboard',
           views: {
             'mainView': {
-              templateUrl: '/private/dashboard',
+              // templateUrl: '/private/dashboard',
+              template: '<div> hi </div>',
               controller: 'DashboardController'
             }
           }
