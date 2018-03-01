@@ -77,6 +77,7 @@ class UserController extends Controller
       ->setIssuedAt(time()) // Configures the time that the token was issue (iat claim)
       ->setNotBefore(time()) // Configures the time that the token can be used (nbf claim)
       ->setExpiration(time() + 3600) // Configures the expiration time of the token (exp claim)
+      ->set('owner_id', $userObject->id)
       ->sign($signer, env("JWT_SECRET"))
       ->getToken();
 

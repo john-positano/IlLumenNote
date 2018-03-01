@@ -13,8 +13,12 @@ class NoteModel extends Model
 
   protected $table = 'notes';
 
-  public function email() {
+  public function note_body() {
     return $this->hasOne('note_body');
+  }
+
+  public function owner_id() {
+    return $this->hasOne('owner_id');
   }
 
   public function notes() {
