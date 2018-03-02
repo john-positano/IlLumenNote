@@ -11,21 +11,21 @@ angular.module('IlLumenNote').service('NoteService', function ($q, $http) {
     return notesDeferred.promise;
   };
 
-  self.postNote = function ($note_body) {
+  self.postNote = function ($note_body, $note_title) {
     var notesDeferred = $q.defer();
 
     $http
-      .post('/private/notes', {'note_body': $note_body})
+      .post('/private/notes', {'note_body': $note_body, 'note_title': $note_title})
       .then(notesDeferred.resolve, notesDeferred.reject);
 
     return notesDeferred.promise;
   };
 
-  self.putNote = function ($note_body, $note_id) {
+  self.putNote = function ($note_body, $note_title, $note_id) {
     var notesDeferred = $q.defer();
 
     $http
-      .put(('/private/notes' + $note_id), {'note_body': $note_body})
+      .put(('/private/notes/' + $note_id), {'note_body': $note_body, 'note_title': $note_title })
       .then(notesDeferred.resolve, notesDeferred.reject);
 
     return notesDeferred.promise;
@@ -35,7 +35,7 @@ angular.module('IlLumenNote').service('NoteService', function ($q, $http) {
     var notesDeferred = $q.defer();
 
     $http
-      .delete('/private/notes' + $note_id)
+      .delete('/private/notes/' + $note_id)
       .then(notesDeferred.resolve, notesDeferred.reject);
 
     return notesDeferred.promise;

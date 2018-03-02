@@ -12,6 +12,11 @@ class NoteModel extends Model
   }
 
   protected $table = 'notes';
+  protected $fillable = [
+    'note_title',
+    'note_body',
+    'active'
+  ];
 
   public function note_body() {
     return $this->hasOne('note_body');
@@ -23,5 +28,9 @@ class NoteModel extends Model
 
   public function notes() {
     return $this->belongsToMany('App\Http\Models\UserModel');
+  }
+
+  public function active() {
+    return $this->hasOne('active');
   }
 }

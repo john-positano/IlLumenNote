@@ -19,10 +19,24 @@ class NoteController extends Controller
   public function getNotes(Request $request, Response $response) 
   {
     $token = $this->unwrapToken($request);
+
     return NoteModel::where([
       ['owner_id', '=', $token->getClaim('owner_id')],
       ['active', '=', 1]
-    ])->join('users', 'users.id', '=', 'notes.owner_id')->get();
+    ])
+    ->join('users', 'users.id', '=', 'notes.owner_id')
+    ->select(
+      'note_id',
+      'note_title',
+      'note_body',
+      'owner_id',
+      'notes.updated_at',
+      'notes.created_at',
+      'active',
+      'name',
+      'email'
+    )
+    ->get();
   }
 
   public function postNote(Request $request, Response $response) 
@@ -42,8 +56,27 @@ class NoteController extends Controller
     $note = new NoteModel;
     $note->owner_id = $token->getClaim('owner_id');
     $note->note_body = $request->input('note_body');
+    $note->note_title = $request->input('note_title');
 
     $note->save();
+
+    return NoteModel::where([
+      ['owner_id', '=', $token->getClaim('owner_id')],
+      ['note_id', '=', $note->id]
+    ])
+    ->join('users', 'users.id', '=', 'notes.owner_id')
+    ->select(
+      'note_id',
+      'note_title',
+      'note_body',
+      'owner_id',
+      'notes.updated_at',
+      'notes.created_at',
+      'active',
+      'name',
+      'email'
+    )
+    ->first();
   }
 
   public function putNote(Request $request, Response $response, $note_id) 
@@ -51,6 +84,7 @@ class NoteController extends Controller
     $token = $this->unwrapToken($request);
     $active = $request->input('active');
     $note_body = $request->input('note_body');
+    $note_title = $request->input('note_title');
 
     if ($note_id == '') {
       return (
@@ -61,13 +95,44 @@ class NoteController extends Controller
       )->header('Content-Type', 'application/json');      
     }
 
-    $note = NoteModel::where([
-      ['owner_id', '=', $token->getClaim('owner_id')],
-      ['id', '=', $note_id]
-    ]);
+    if ($active != '') { 
+      NoteModel::where([
+        ['owner_id', '=', $token->getClaim('owner_id')],
+        ['note_id', '=', $note_id]
+      ])->update(['active' => $active]);
+    }
 
-    if ($active != '') { $note->update(['active' => $active]); }
-    if ($note_body != '') { $note->update(['note_body' => $note_body]); }
+    if ($note_body != '') {
+      NoteModel::where([
+        ['owner_id', '=', $token->getClaim('owner_id')],
+        ['note_id', '=', $note_id]
+      ])->update(['note_body' => $note_body]);
+    }
+
+    if ($note_title != '') {
+      NoteModel::where([
+        ['owner_id', '=', $token->getClaim('owner_id')],
+        ['note_id', '=', $note_id]       
+      ])->update(['note_title' => $note_title]);
+    }
+
+    return NoteModel::where([
+      ['owner_id', '=', $token->getClaim('owner_id')],
+      ['note_id', '=', $note_id]
+    ])
+    ->join('users', 'users.id', '=', 'notes.owner_id')
+    ->select(
+      'note_id',
+      'note_title',
+      'note_body',
+      'owner_id',
+      'notes.updated_at',
+      'notes.created_at',
+      'active',
+      'name',
+      'email'
+    )
+    ->first();
   }
 
   public function deleteNote(Request $request, Response $response, $note_id)
@@ -85,10 +150,8 @@ class NoteController extends Controller
 
     $note = NoteModel::where([
       ['owner_id', '=', $token->getClaim('owner_id')],
-      ['id', '=', $note_id]
-    ]);
-
-    $note->update(['active' => 0]);
+      ['note_id', '=', $note_id]
+    ])->update(['active' => false]);
   }
 
   private function unwrapToken(Request $request) 

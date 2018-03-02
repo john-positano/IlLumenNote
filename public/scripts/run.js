@@ -6,7 +6,14 @@ angular.module('IlLumenNote').run(function ($state, $rootScope, $timeout) {
       $state.go('private.dashboard');
     });
 
-    if (localStorage.getItem('$user')) {
+    var $preexistingUser = localStorage.getItem('$user');
+
+    if ($preexistingUser) {
+      try {
+        $rootScope.$user = JSON.parse($preexistingUser);
+      } catch (e) {
+        $state.go('login');
+      }
       $state.go('private.dashboard');
     } else {
       $state.go('login');

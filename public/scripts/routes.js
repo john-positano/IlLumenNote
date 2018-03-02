@@ -26,11 +26,6 @@ angular
                 templateUrl: '/views/login.html',
                 controller: 'LoginController'
               }
-            },
-            resolve: {
-              a: function () {
-                console.log('a');
-              }
             }
           }
         )
