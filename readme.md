@@ -1,21 +1,82 @@
-## Lumen PHP Framework
+# IlLumenNote
+#### Lumen-Angular Double MVC
+This project was intended to represent a germinating application collaborated on by a frontend and backend team.
 
-[![Build Status](https://travis-ci.org/laravel/lumen-framework.svg)](https://travis-ci.org/laravel/lumen-framework)
-[![Total Downloads](https://poser.pugx.org/laravel/lumen-framework/d/total.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/lumen-framework/v/stable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/lumen-framework/v/unstable.svg)](https://packagist.org/packages/laravel/lumen-framework)
-[![License](https://poser.pugx.org/laravel/lumen-framework/license.svg)](https://packagist.org/packages/laravel/lumen-framework)
+#### Dependencies/Frameworks used:
+* Lumen
+* Eloquent
+* Angular.js
+* Bootstrap
 
-Laravel Lumen is a stunningly fast PHP micro-framework for building web applications with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Lumen attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as routing, database abstraction, queueing, and caching.
+### Installation
+an environment file (titled ".env" and placed at the root of the project directory) is required to provide configuration variables:
 
-## Official Documentation
+```
+APP_ENV=local
+APP_DEBUG=true
+APP_KEY=SharpSpringSharpSpring
 
-Documentation for the framework can be found on the [Lumen website](http://lumen.laravel.com/docs).
+DB_CONNECTION=mysql
+DB_HOST=XXXX
+DB_PORT=3306
+DB_DATABASE=XXXX
+DB_USERNAME=XXXX
+DB_PASSWORD=XXXX
 
-## Security Vulnerabilities
+JWT_SECRET=SharpSpringSharpSpring
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+CACHE_DRIVER=memcached
+QUEUE_DRIVER=sync
+```
+required commands
+```
+composer install
+php -S localhost:4321 -t public
+```
 
-### License
+required database schema
+```
+CREATE TABLE `users` (
+  `id` bigint(64) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+);
 
-The Lumen framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+CREATE TABLE `notes` (
+  `note_id` bigint(64) NOT NULL AUTO_INCREMENT,
+  `note_title` varchar(500) DEFAULT NULL,
+  `note_body` text,
+  `owner_id` bigint(64) DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `active` tinyint(4) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`note_id`)
+)
+```
+
+and this should be sufficient to start up the application!
+
+Visit `http://localhost:4321` to assume the home page.
+
+#### Frontend
+
+Frontend Engineers would find themselves working out of the `/public` folder, which is designed to be served statically. This static serving is covered by the built-in server included with PHP.
+
+Data for the application is fetched as JSON Data Views through the use of Client-side HTTP Services. The objects that are parsed out of the incoming JSON form the scope of the frontend application. Client-side Controllers bind the Data Views to HTML Views. The Controllers interact with the Model RESTfully over HTTP.
+
+JWT is used to provide authentication and the `User` is contained as a claim of this token. The token interacts with a middleware in the backend.
+
+#### Backend
+
+Backend Engineers see Lumen Controllers manipulating Database Models to produce JSON Data Views. Eloquent was chosen to highlight a preferred choice of the Laravel community and to also simplify Query building. The models began simply, but listing the note author's name in the UI prompted a join between two tables. Sensitive database columns are also filtered.
+
+Middleware was written within the Lumen framework by including a package (Lcobucci/JWT) with exposed methods for signing/verifying tokens. While the login page is not intercepted by authentication, virtually everything else must be authenticated. These routes are arranged into one, common route group.
+
+There are various routes that serve the homepage redundantly. This is to allow a small domain of paths to be controlled by AngularJS. Within the single page application, AngularJS manipulates the URL without page refresh. If the page is refreshed, the server sees a URL created by AngularJS and not Lumen. Serving `index.html` without redirect allows Angular to resume and route the application seamlessly.
+
+The Dashboard is a special route case where the Lumen View engine is invoked to provide basic includes. As well the result is further processed in Angular.js. This is done to demonstrate the possibility of both Frontend and Backend collaborating on a mutually understood interface at runtime without the use of AJAX.
