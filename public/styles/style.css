@@ -68,7 +68,7 @@ hr { margin-left: 40px; margin-right: 40px; }
 [color="blue"] { border: 1px solid #6495ed; background-color: #b1caf6; }
 
 .header { z-index: 20; height: 50px; background-color: darkgrey; }
-.board {  z-index: 0; height: calc(100vh - 90px); background-color: lightgrey; overflow-y: scroll; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5) inset; }
+.board {  z-index: 0; height: calc(100vh - 50px); background-color: lightgrey; overflow-y: scroll; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5) inset; }
 
 .header-btn { width: 100%; height: calc(100% - 10px); margin-top: 5px; margin-bottom: 15px; padding-left: 5%; padding-right: 5%; padding-top: 5px; }
 .header-btn:hover { margin-top: 5px !important; }
