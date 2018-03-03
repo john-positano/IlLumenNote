@@ -167,3 +167,7 @@ hr.note {
   resize: none;
   outline: none;
 }
+
+textarea[disabled] {
+  color: rgba(20, 20, 20, 1);
+}
