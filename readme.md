@@ -85,13 +85,13 @@ Visit `http://localhost:4321` to assume the home page.
 
 Frontend Engineers would find themselves working out of the `/public` folder, which is designed to be served statically. This static serving is covered by the built-in server included with PHP.
 
-Data for the application is fetched as JSON Data Views through the use of Client-side HTTP Services. The objects that are parsed out of the incoming JSON form the scope of the frontend application. Client-side Controllers bind the Data Views to HTML Views. The Controllers interact with the Model RESTfully over HTTP.
+Data for the application is fetched as JSON Data Views through the use of Client-side HTTP Services. The objects that are parsed out of the incoming JSON form the Scope and Model of the frontend application. Client-side Controllers manipulate this resultant Model while Angular binds this model to the Document Object Model. Changes to the model are reflected in the backend RESTfully.
 
 JWT is used to provide authentication and the `User` is contained as a claim of this token. The token interacts with a middleware in the backend.
 
 #### Backend
 
-Backend Engineers see Lumen Controllers manipulating Database Models to produce JSON Data Views. Eloquent was chosen to highlight a preferred choice of the Laravel community and to also simplify Query building. The models began simply, but listing the note author's name in the UI prompted a join between two tables. Sensitive database columns are also filtered.
+Backend Engineers see Lumen Controllers manipulating Database Models to produce JSON Data Views. Eloquent was chosen to highlight a preferred choice of the Laravel community and to also simplify Query building. For convenience, `NoteController.php` returns `notes JOIN users`. Sensitive database columns are also filtered.
 
 Middleware was written within the Lumen framework by including a package (Lcobucci/JWT) with exposed methods for signing/verifying tokens. While the login page is not intercepted by authentication, virtually everything else must be authenticated. These routes are arranged into one, common route group.
 
