@@ -67,16 +67,16 @@ Visit `http://localhost:4321` to assume the home page.
 
 Frontend Engineers would find themselves working out of the `/public` folder, which is designed to be served statically. This static serving is covered by the built-in server included with PHP.
 
-Data for the application is fetched as JSON from Services. This JSON is essentially a Data View which is fed to a Controller which is manipulating the view DOM. So the Frontend MVC portion consists of Data Views and Client-side Controllers which interact with the Database Model (Backend) through Services.
+Data for the application is fetched as JSON Data Views through the use of Client-side HTTP Services. The objects that are parsed out of the incoming JSON form the scope of the frontend application. Client-side Controllers bind the Data Views to HTML Views. The Controllers interact with the Model RESTfully over HTTP.
 
 JWT is used to provide authentication and the `User` is contained as a claim of this token. The token interacts with a middleware in the backend.
 
 #### Backend
 
-Backend Engineers see Lumen Controllers manipulating Database Models to produce JSON Data Views. Eloquent was chosen to highlight a preferred choice of the Laravel community and to also simplify Query building. The models began simply, but listing the note author's name in the UI prompted a join between two tables. Sensitive information is also filtered.
+Backend Engineers see Lumen Controllers manipulating Database Models to produce JSON Data Views. Eloquent was chosen to highlight a preferred choice of the Laravel community and to also simplify Query building. The models began simply, but listing the note author's name in the UI prompted a join between two tables. Sensitive database columns are also filtered.
 
-Middleware was written within the Lumen framework by including a package (Lcobucci/JWT) with exposed methods for signing/verifying tokens. The routes affected by this are included as a common route group.
+Middleware was written within the Lumen framework by including a package (Lcobucci/JWT) with exposed methods for signing/verifying tokens. While the login page is not intercepted by authentication, virtually everything else must be authenticated. These routes are arranged into one, common route group.
 
-Since Client-side routing is abstracted by Angular.js in HTML5 Mode, some routes in the backend redirect to login arbitrarily.
+There are various routes that serve the homepage redundantly. This is to allow a small domain of paths to be controlled by AngularJS. Within the single page application, AngularJS manipulates the URL without page refresh. If the page is refreshed, the server sees a URL created by AngularJS and not Lumen. Serving `index.html` without redirect allows Angular to resume and route the application seamlessly.
 
-The Dashboard is a special route case where the Lumen View engine is invoked to provide basic includes. As well the result is further processed in Angular.js. This is done to demonstrate the possibility of both Frontend and Backend collaborating on a mutually understood view.
+The Dashboard is a special route case where the Lumen View engine is invoked to provide basic includes. As well the result is further processed in Angular.js. This is done to demonstrate the possibility of both Frontend and Backend collaborating on a mutually understood interface at runtime without the use of AJAX.
