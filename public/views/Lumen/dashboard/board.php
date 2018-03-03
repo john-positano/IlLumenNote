@@ -31,8 +31,8 @@
         </div>
       </div>
       <div class="row ml-0 mr-0">
-<!--         <div class="col-6 padless smaller"><i>by {{ note.name[0].toUpperCase() + note.name.slice(1) }}</i></div> -->
-        <div class="col-6 padless smaller"><i>{{ getNoteId($index) }} | {{ $index }}</i></div>
+        <div class="col-6 padless smaller"><i>by {{ note.name[0].toUpperCase() + note.name.slice(1) }}</i></div>
+        <!-- <div class="col-6 padless smaller"><i>{{ getNoteId($index) }} | {{ $index }}</i></div> -->
         <div ng-if="note.updated_at" class="col-6 padless smaller">
           <span class="float-right hide-overflow">{{ note.updated_at.split(' ').join('T') | date: 'EEE MM/dd h:mm a' }}</span>
         </div>
