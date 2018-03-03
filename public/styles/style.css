@@ -85,7 +85,6 @@ hr { margin-left: 40px; margin-right: 40px; }
 }
 .item {
   display: block;
-  position: absolute;
   margin-top: 0;
   /*margin-left: 0;*/
   /*margin-right: 0;*/

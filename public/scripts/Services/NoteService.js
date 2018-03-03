@@ -33,6 +33,7 @@ angular.module('IlLumenNote').service('NoteService', function ($q, $http) {
 
   self.deleteNote = function ($note_id) {
     var notesDeferred = $q.defer();
+    if (!$note_id) { return; }
 
     $http
       .delete('/private/notes/' + $note_id)

@@ -1,4 +1,4 @@
-angular.module('IlLumenNote').run(function ($state, $rootScope, $timeout) {
+angular.module('IlLumenNote').run(function ($state, $rootScope, $timeout, $transitions) {
   $timeout(function () {
     $rootScope.$on('LOGIN', function ($e, $user) {
       localStorage.setItem('$user', JSON.stringify($user));
@@ -12,11 +12,9 @@ angular.module('IlLumenNote').run(function ($state, $rootScope, $timeout) {
       try {
         $rootScope.$user = JSON.parse($preexistingUser);
       } catch (e) {
-        $state.go('login');
+        return;
       }
       $state.go('private.dashboard');
-    } else {
-      $state.go('login');
     }
   });
 });

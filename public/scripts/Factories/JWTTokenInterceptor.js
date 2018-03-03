@@ -13,8 +13,10 @@ angular.module('IlLumenNote').factory('JWTTokenInterceptor', function ($rootScop
       return config;
     },
     'responseError': function(rejection) {
-      localStorage.removeItem('$user');
-      $state.go('login');
+      if (rejection.status = 401 && $state.current.name != 'login') {
+        localStorage.removeItem('$user');
+        $state.go('login');
+      }
       return $q.reject(rejection);
     }
   };

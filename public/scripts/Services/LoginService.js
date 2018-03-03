@@ -4,7 +4,9 @@ angular.module('IlLumenNote').service('LoginService', function ($q, $http) {
   self.login = function ($email, $password) {
     var loginDeferred = $q.defer();
 
-    $http.post('/login', { email: $email, password: $password }).then(loginDeferred.resolve, loginDeferred.reject);
+    $http
+      .post('/login', { email: $email, password: $password })
+      .then(loginDeferred.resolve, loginDeferred.reject);
 
     return loginDeferred.promise;
   };

@@ -1,5 +1,6 @@
 angular.module('IlLumenNote').controller('LoginController', function ($state, $scope, $rootScope, LoginService, NotificationService, $compile) {
   $scope.notificationBody = ' ';
+  NotificationService.$$element = angular.element('.notification').first();
 
   $scope.redden = function (ngModel) {
     $('[ng-model="' + ngModel + '"]').css({ 'border-color': 'red' });
@@ -37,11 +38,11 @@ angular.module('IlLumenNote').controller('LoginController', function ($state, $s
         $rootScope.$emit('LOGIN', resolved.data);
       },
       function (rejected) {
-        $rootScope.$emit('LOGERR', rejected.data);
+        $rootScope.$emit('LOGERR', rejected);
         NotificationService.abort();
         NotificationService.color("red");
         NotificationService.notify(
-          function () { $scope.notificationBody = rejected.data.errorMessage; },
+          function () { $scope.notificationBody = rejected.data.errorMessage ? rejected.data.errorMessage : 'Network error!'; },
           function () { $scope.notificationBody = ' '; }
         );
       }
