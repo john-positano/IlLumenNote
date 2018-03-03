@@ -8,5 +8,5 @@
   <h2 class="text-center header-logo mt-2">IlLumenNote</h2>
 </div>
 <div class="col-3 col-sm-2 col-md-2 offset-sm-2 offset-md-2">
-  <button ng-click="logout()" type="button" class="btn btn-secondary header-btn"><i class="header-icon fa fa-sign-out"></i><br>LOGOUT</button>
+  <button ng-click="logout()" type="button" class="btn btn-secondary header-btn" style="padding-top: 3px;"><i class="header-icon fa fa-sign-out"></i><br>LOGOUT</button>
 </div>
