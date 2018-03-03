@@ -60,7 +60,9 @@ angular.module('IlLumenNote').controller('DashboardController', function ($filte
     $scope.notes.forEach(function (each, noteIndex) {
       switch (true) {
         case (each.editting) && !((each.note_id == "") || (each.note_id == null)):
+          each.editting = false;
           each.saving = true;
+          each.updated_at = 'Saving...';
           NoteService.putNote(each.note_body, each.note_title, each.note_id).then(
             function (success) {
               each.note_title = success.data.note_title;
@@ -73,13 +75,15 @@ angular.module('IlLumenNote').controller('DashboardController', function ($filte
             },
             function (error) {
               each.saving = false;
-              each.editting = false;
+              each.editting = true;
+              each.updated_at = 'Failed to save!!!';
               console.error(error);
             }
           );
           break;
         case (each.editting) && ((each.note_id == "") || (each.note_id == null)):
           each.saving = true;
+          each.updated_at = 'Saving...';
           NoteService.postNote(each.note_body, each.note_title).then(
             function (success) {
               each.note_id = success.data.note_id;
@@ -93,7 +97,8 @@ angular.module('IlLumenNote').controller('DashboardController', function ($filte
             },
             function (error) {
               each.saving = false;
-              each.editting = false;
+              each.editting = true;
+              each.updated_at = 'Failed to save!!!';
               console.error(error);
             }
           );
