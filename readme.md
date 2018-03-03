@@ -9,7 +9,8 @@ This project was intended to represent a germinating application collaborated on
 * Bootstrap
 
 ### Installation
-an environment file (titled ".env" and placed at the root of the project directory) is required to provide configuration variables:
+
+An environment file (titled ".env" and placed at the root of the project directory) is required to provide configuration variables:
 
 ```
 APP_ENV=local
@@ -28,13 +29,13 @@ JWT_SECRET=SharpSpringSharpSpring
 CACHE_DRIVER=memcached
 QUEUE_DRIVER=sync
 ```
-required commands
+Required commands:
 ```
 composer install
 php -S localhost:4321 -t public
 ```
 
-required database schema
+Required database schema:
 ```
 CREATE TABLE `users` (
   `id` bigint(64) NOT NULL AUTO_INCREMENT,
@@ -57,6 +58,23 @@ CREATE TABLE `notes` (
   `active` tinyint(4) NOT NULL DEFAULT '1',
   PRIMARY KEY (`note_id`)
 )
+```
+
+Seed the database:
+```
+INSERT INTO 
+  `users` 
+(`id`,`name`,`email`,`password`,`updated_at`,`created_at`) 
+  VALUES 
+(1,'test','test@test.com','$2y$10$1f1c26ea42cffef3fe737OuZgsQkIFHYCmhrodPHpTxoYqmtSTpyG','2015-10-12 02:40:15','2015-10-12 02:40:15');
+
+INSERT INTO 
+  `notes` 
+(`note_id`,`note_title`,`note_body`,`owner_id`,`updated_at`,`created_at`,`active`) 
+  VALUES 
+(1,'Daily Note','Here is a note from the day!',1,'2018-03-03 05:23:50','2018-03-02 01:23:47',1),
+(2,'Additional Note','Wait! Here is another thing!',1,'2018-03-03 00:46:29','2018-03-02 01:23:47',1),
+(3,'Further Note','Nevermind. Cancel that thing.',1,'2018-03-02 23:38:40','2018-03-02 01:23:47',1);
 ```
 
 and this should be sufficient to start up the application!
